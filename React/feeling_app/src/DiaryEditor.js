@@ -1,8 +1,8 @@
-import { useState } from "react";
+import { useState, useRef } from "react";
 
 const DiaryEditor = () => {
-  // const [author, setAuthor] = useState("");
-  // const [content, setContext] = useState("");
+  const authorInput = useRef();
+  const contentInput = useRef();
 
   const [state, setState] = useState({
     author: "",
@@ -18,6 +18,15 @@ const DiaryEditor = () => {
   };
 
   const handleSubmit = () => {
+    if (state.author.length < 1) {
+      //ref의 current 까지가 태그!
+      authorInput.current.focus();
+      return;
+    }
+    if (state.content.length < 5) {
+      contentInput.current.focus();
+      return;
+    }
     console.log(state);
     alert("저장성공");
   };
@@ -30,6 +39,7 @@ const DiaryEditor = () => {
           name="author"
           value={state.author}
           onChange={handleChangeState}
+          ref={authorInput}
         />
       </div>
       <div>
@@ -37,6 +47,7 @@ const DiaryEditor = () => {
           value={state.content}
           name="content"
           onChange={handleChangeState}
+          ref={contentInput}
         />
       </div>
       <div>

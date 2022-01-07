@@ -29,7 +29,6 @@ const DiaryEditor = ({ onCreate }) => {
     }
     console.log(state);
     onCreate(state.author, state.content, state.emotion);
-    alert("저장성공");
     setState({
       author: "",
       content: "",

@@ -57,7 +57,7 @@ function App() {
   const onEdit = (targetId, newContent) => {
     setData(
       data.map((item) =>
-        item.id === targetId ? { ...item, content: newContent } : { item }
+        item.id === targetId ? { ...item, content: newContent } : { ...item }
       )
     );
   };

@@ -3,7 +3,6 @@ import { useEffect } from "react/cjs/react.development";
 import "./App.css";
 import DiaryEditor from "./DiaryEditor";
 import DiaryList from "./DiaryList";
-import Lifecycle from "./Lifecycle";
 
 function App() {
   const [data, setData] = useState([]);
@@ -49,7 +48,7 @@ function App() {
 
   const onRemove = (targetId) => {
     if (window.confirm(`해당 일기를 정말 삭제하시겠습니까?`)) {
-      const newDiaryList = data.filter((item) => item.id != targetId);
+      const newDiaryList = data.filter((item) => item.id !== targetId);
       setData(newDiaryList);
     }
   };
@@ -65,7 +64,6 @@ function App() {
   //length가 바뀔때만 실행
   //이때는 특정 값을 반환한다고 함! getDiaryAnalysis가 함수가 아님.
   const getDiaryAnalysis = useMemo(() => {
-    console.log("일기 분석 시작");
     const goodCount = data.filter((item) => item.emotion > 3).length;
     const badCount = data.length - goodCount;
     const goodRatio = (goodCount / data.length) * 100;
@@ -76,7 +74,6 @@ function App() {
 
   return (
     <div className="App">
-      <Lifecycle />
       <DiaryEditor onCreate={onCreate} />
       <div>전체 일기 : {data.length}</div>
       <div>기분 좋은 일기 개수 : {goodCount}</div>

@@ -1,5 +1,4 @@
-import { useRef, useState, useMemo } from "react";
-import { useEffect } from "react/cjs/react.development";
+import { useRef, useEffect, useState, useMemo, useCallback } from "react";
 import "./App.css";
 import DiaryEditor from "./DiaryEditor";
 import DiaryList from "./DiaryList";
@@ -33,7 +32,8 @@ function App() {
     getData();
   }, []);
 
-  const onCreate = (author, content, emotion) => {
+  // 한번 mount 될때만 실행. 그 뒤에는 같은 값을 유지한다.
+  const onCreate = useCallback((author, content, emotion) => {
     const created_time = new Date().getTime();
     const newItem = {
       author,
@@ -43,23 +43,24 @@ function App() {
       id: dataId.current,
     };
     dataId.current += 1;
-    setData([newItem, ...data]);
-  };
+    //setState에 함수를 전달하는게 함수형 업데이트 라고 함.
+    //이렇게 안하면, 데이터의 현재값을 참조하는 것이 불가능함.
+    setData((data) => [newItem, ...data]);
+  }, []);
 
-  const onRemove = (targetId) => {
+  const onRemove = useCallback((targetId) => {
     if (window.confirm(`해당 일기를 정말 삭제하시겠습니까?`)) {
-      const newDiaryList = data.filter((item) => item.id !== targetId);
-      setData(newDiaryList);
+      setData((data) => data.filter((item) => item.id !== targetId));
     }
-  };
+  }, []);
 
-  const onEdit = (targetId, newContent) => {
-    setData(
+  const onEdit = useCallback((targetId, newContent) => {
+    setData((data) =>
       data.map((item) =>
         item.id === targetId ? { ...item, content: newContent } : { ...item }
       )
     );
-  };
+  }, []);
   //useMemo로 memoization원하는거 감싸기, 배열 주기
   //length가 바뀔때만 실행
   //이때는 특정 값을 반환한다고 함! getDiaryAnalysis가 함수가 아님.

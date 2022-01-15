@@ -1,10 +1,40 @@
-import { useRef, useEffect, useState, useMemo, useCallback } from "react";
+import { useRef, useEffect, useMemo, useCallback, useReducer } from "react";
 import "./App.css";
 import DiaryEditor from "./DiaryEditor";
 import DiaryList from "./DiaryList";
 
+//상태변화 직전 state, 어떤 상태변화를 일으켜야 하는지 정보 action
+//return 값이 새로운 state가 된다.
+const reducer = (state, action) => {
+  switch (action.type) {
+    case `INIT`: {
+      return action.data;
+    }
+    case `CREATE`: {
+      const created_time = new Date().getTime();
+      const newItem = {
+        ...action.data,
+        created_time,
+      };
+      return [newItem, ...state];
+    }
+    case `REMOVE`: {
+      return state.filter((data) => data.id !== action.targetId);
+    }
+    case `EDIT`: {
+      return state.map((item) =>
+        item.id === action.targetId
+          ? { ...item, content: action.newContent }
+          : item
+      );
+    }
+    default:
+      return state;
+  }
+};
+
 function App() {
-  const [data, setData] = useState([]);
+  const [data, dispatch] = useReducer(reducer, []);
 
   const dataId = useRef(0);
 
@@ -25,7 +55,7 @@ function App() {
     });
 
     //직접해보기
-    setData(initData);
+    dispatch({ type: "INIT", data: initData });
   };
 
   useEffect(() => {
@@ -34,32 +64,38 @@ function App() {
 
   // 한번 mount 될때만 실행. 그 뒤에는 같은 값을 유지한다.
   const onCreate = useCallback((author, content, emotion) => {
-    const created_time = new Date().getTime();
-    const newItem = {
-      author,
-      content,
-      emotion,
-      created_time,
-      id: dataId.current,
-    };
+    dispatch({
+      type: "CREATE",
+      data: { author, content, emotion, id: dataId.current },
+    });
+    // const created_time = new Date().getTime();
+    // const newItem = {
+    //   author,
+    //   content,
+    //   emotion,
+    //   created_time,
+    //   id: dataId.current,
+    // };
     dataId.current += 1;
     //setState에 함수를 전달하는게 함수형 업데이트 라고 함.
     //이렇게 안하면, 데이터의 현재값을 참조하는 것이 불가능함.
-    setData((data) => [newItem, ...data]);
+    // setData((data) => [newItem, ...data]);
   }, []);
 
   const onRemove = useCallback((targetId) => {
-    if (window.confirm(`해당 일기를 정말 삭제하시겠습니까?`)) {
-      setData((data) => data.filter((item) => item.id !== targetId));
-    }
+    dispatch({ type: "REMOVE", targetId });
+    // if (window.confirm(`해당 일기를 정말 삭제하시겠습니까?`)) {
+    //   setData((data) => data.filter((item) => item.id !== targetId));
+    // }
   }, []);
 
   const onEdit = useCallback((targetId, newContent) => {
-    setData((data) =>
-      data.map((item) =>
-        item.id === targetId ? { ...item, content: newContent } : { ...item }
-      )
-    );
+    dispatch({ type: "EDIT", targetId, newContent });
+    // setData((data) =>
+    //   data.map((item) =>
+    //     item.id === targetId ? { ...item, content: newContent } : { ...item }
+    //   )
+    // );
   }, []);
   //useMemo로 memoization원하는거 감싸기, 배열 주기
   //length가 바뀔때만 실행

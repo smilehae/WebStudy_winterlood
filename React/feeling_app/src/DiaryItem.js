@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useRef } from "react";
+import React, { useState, useRef } from "react";
 
 const DiaryItem = ({
   author,
@@ -9,9 +9,6 @@ const DiaryItem = ({
   onRemove,
   onEdit,
 }) => {
-  useEffect(() => {
-    console.log(`${id}번째 아이템 렌더`);
-  });
   const [isEdit, setEdit] = useState(false); //수정중인지 여부 확인
 
   const [localContent, setLocalContent] = useState(content);

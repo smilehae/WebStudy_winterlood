@@ -1,0 +1,144 @@
+@import url("https://fonts.googleapis.com/css2?family=Nanum+Pen+Script&family=Yeon+Sung&display=swap");
+
+body {
+  background-color: #f6f6f6;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-family: "Nanum Pen Script", cursive;
+  min-height: 100vh;
+  margin: 0px;
+}
+@media (min-width: 650px) {
+  .App {
+    width: 640px;
+  }
+}
+@media (max-width: 650px) {
+  .App {
+    width: 90vw;
+  }
+}
+.App {
+  min-height: 100vh;
+  padding: 0 20px;
+}
+
+#root {
+  background-color: white;
+  box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+}
+
+/* Button */
+.MyButton {
+  cursor: pointer;
+  border: none;
+  border-radius: 5px;
+
+  padding: 10px 20px;
+  font-size: 18px;
+  white-space: nowrap;
+  /* 버튼 잘려서 두줄로 나타나기 방지 */
+  font-family: "Nanum Pen Script", cursive;
+}
+
+.MyButton_default {
+  background-color: #ececec;
+  color: black;
+}
+
+.MyButton_positive {
+  background-color: #64c964;
+  color: white;
+}
+
+.MyButton_negative {
+  background-color: #fd565f;
+  color: white;
+}
+
+/* Header */
+
+.MyHeader {
+  padding: 20px 0;
+  display: flex;
+  justify-content: space-between;
+  border-bottom: 1px solid gainsboro;
+}
+.MyHeader .header_text {
+  font-size: 25px;
+  display: flex;
+  align-items: center;
+}
+/* DiaryList */
+.DiaryList {
+  padding-top: 10px;
+}
+.DiaryList .menu_wrapper {
+  display: flex;
+  justify-content: space-between;
+  padding-bottom: 10px;
+}
+.DiaryList .menu_wrapper .btn_container {
+  flex-grow: 1;
+}
+.DiaryList .menu_wrapper .btn_container button {
+  width: 100%;
+}
+/* ControlMenu */
+.ControlMenu {
+  background-color: rgb(238, 238, 238);
+  border: none;
+  border-radius: 5px;
+  font-family: "Nanum Pen Script", cursive;
+  font-size: 18px;
+  padding: 10px 20px;
+  margin-right: 10px;
+}
+/* DiaryItem */
+.DiaryItem {
+  display: flex;
+  padding: 20px 0;
+  justify-content: space-between;
+  border-bottom: 1px solid gainsboro;
+}
+.DiaryItem .content_container {
+  padding: 0 20px;
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+}
+.DiaryItem .date_text {
+  font-size: 25px;
+  font-weight: bold;
+}
+.DiaryItem .content_text {
+  font-size: 18px;
+}
+.DiaryItem .image_wrapper img {
+  width: 80px;
+  height: 80px;
+}
+.DiaryItem .image_wrapper {
+  display: flex;
+  width: 120px;
+  justify-content: center;
+}
+.DiaryItem .image_wrapper1 {
+  background-color: #fd565f;
+}
+.DiaryItem .image_wrapper2 {
+  background-color: #fd8446;
+}
+.DiaryItem .image_wrapper3 {
+  background-color: #fdce17;
+}
+.DiaryItem .image_wrapper4 {
+  background-color: #9dd772;
+}
+.DiaryItem .image_wrapper5 {
+  background-color: #64c964;
+}
+.DiaryItem .btn_container {
+  min-width: 80px;
+}

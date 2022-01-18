@@ -1,5 +1,5 @@
 import { useNavigate } from "react-router-dom";
-import { useContext, useRef, useState } from "react";
+import { useContext, useEffect, useRef, useState } from "react";
 import MyHeader from "./MyHeader";
 import MyButton from "./MyButton";
 import EmotionItem from "./EmotionItem";
@@ -37,14 +37,14 @@ const getStringDate = (date) => {
   return date.toISOString().slice(0, 10);
 };
 
-const DiaryEditor = () => {
+const DiaryEditor = ({ isEdit, originData }) => {
   const navigate = useNavigate();
   const textareaInput = useRef();
   const [date, setDate] = useState(getStringDate(new Date()));
   const [emotion, setEmotion] = useState(3);
   const [text, setText] = useState("");
 
-  const { onCreate } = useContext(DiaryDispatchContext);
+  const { onCreate, onEdit } = useContext(DiaryDispatchContext);
 
   const handleClickEmote = (emotion) => {
     setEmotion(emotion);
@@ -55,15 +55,34 @@ const DiaryEditor = () => {
       textareaInput.current.focus();
       return;
     }
-    onCreate(date, text, emotion);
-    //뒤로가기 통해 현재 페이지로 못돌아옴!
-    navigate("/", { replace: true });
+    if (
+      window.confirm(
+        isEdit ? "일기를 수정하시겠습니까?" : "일기를 삭제하시겠습니까?"
+      )
+    ) {
+      if (isEdit) {
+        onEdit(originData.id, date, text, emotion);
+      } else {
+        onCreate(date, text, emotion);
+      }
+      //뒤로가기 통해 현재 페이지로 못돌아옴!
+      navigate("/", { replace: true });
+    }
+    return;
   };
+
+  useEffect(() => {
+    if (isEdit) {
+      setDate(getStringDate(new Date(parseInt(originData.date))));
+      setEmotion(parseInt(originData.emotion));
+      setText(originData.content);
+    }
+  }, [isEdit, originData]);
 
   return (
     <div className="DiaryEditor">
       <MyHeader
-        headText={"새 일기쓰기"}
+        headText={isEdit ? "일기 수정하기" : "새 일기쓰기"}
         leftChild={<MyButton text="< 뒤로가기" onClick={() => navigate(-1)} />}
       />
       <div>
@@ -115,6 +134,11 @@ const DiaryEditor = () => {
       </div>
     </div>
   );
+};
+
+DiaryEditor.defaultProps = {
+  isEdit: false,
+  originData: {},
 };
 
 export default DiaryEditor;

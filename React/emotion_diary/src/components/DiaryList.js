@@ -48,9 +48,9 @@ const DiaryList = ({ diaryList }) => {
     const sortedList = copyList.sort(compare);
     let filteredList = sortedList;
     if (emotionType === "good") {
-      filteredList = sortedList.filter((list) => parseInt(list.emotion) >= 3);
+      filteredList = sortedList.filter((list) => parseInt(list.emotion) <= 3);
     } else if (emotionType === "bad") {
-      filteredList = sortedList.filter((list) => parseInt(list.emotion) < 3);
+      filteredList = sortedList.filter((list) => parseInt(list.emotion) > 3);
     }
     return filteredList;
   };

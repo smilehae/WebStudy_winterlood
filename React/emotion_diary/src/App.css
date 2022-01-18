@@ -173,3 +173,87 @@ header button {
 .DiaryItem .btn_wrapper {
   min-width: 70px;
 }
+
+/* DiaryEditor */
+.DiaryEditor {
+}
+
+.DiaryEditor section {
+  margin-bottom: 40px;
+}
+.DiaryEditor h4 {
+  font-size: 22px;
+  font-weight: bold;
+}
+.DiaryEditor .input_date {
+  border: none;
+  border-radius: 5px;
+  background-color: #ececec;
+  padding: 10px 20px;
+  cursor: pointer;
+  font-family: "Nanum Pen Script", cursive;
+  font-size: 20px;
+}
+.DiaryEditor .emotion_list_wrapper {
+  display: grid;
+  /* 5개의 column을 만들건데 사이즈는 오토로! */
+  grid-template-columns: repeat(5, auto);
+  gap: 2%;
+}
+
+.DiaryEditor textarea {
+  background-color: #ececec;
+  border: none;
+  border-radius: 5px;
+  padding: 20px;
+  font-family: "Nanum Pen Script", cursive;
+  font-size: 20px;
+  height: 10rem;
+  box-sizing: border-box;
+  width: 100%;
+  resize: vertical;
+}
+.DiaryEditor .btn_container {
+  display: flex;
+  justify-content: space-between;
+}
+/* EmotionItem */
+.EmotionItem {
+  cursor: pointer;
+  border-radius: 5px;
+  padding: 20px 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+.EmotionItem img {
+  width: 50%;
+  margin-bottom: 10px;
+}
+.EmotionItem span {
+  font-size: 18px;
+}
+.EmotionItem.emotion_background1 {
+  background-color: #64c964;
+  color: white;
+}
+.EmotionItem.emotion_background2 {
+  background-color: #9dd772;
+  color: white;
+}
+.EmotionItem.emotion_background3 {
+  background-color: #fdce17;
+  color: white;
+}
+.EmotionItem.emotion_background4 {
+  background-color: #fd8446;
+  color: white;
+}
+.EmotionItem.emotion_background5 {
+  background-color: #fd565f;
+  color: white;
+}
+.EmotionItem.emotion_off {
+  background-color: #ececec;
+}

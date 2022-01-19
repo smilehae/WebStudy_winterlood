@@ -7,7 +7,7 @@ const EmotionItem = ({ emotion_id, emotion_img, emotion_desc, isSelected }) => {
         isSelected ? `emotion_selected${emotion_id}` : "",
       ].join(" ")}
     >
-      <img src={process.env.PUBLIC_URL + `assets/${emotion_img}`} />
+      <img src={emotion_img} />
       <span>{emotion_desc}</span>
     </div>
   );

@@ -24,7 +24,6 @@ const reducer = (state, action) => {
       return action.data;
     }
     case `CREATE`: {
-      console.log(action.data);
       newState = [action.data, ...state];
       break;
     }
@@ -50,7 +49,6 @@ function App() {
   const idCount = useRef(6);
 
   const onCreate = ({ content, emotion, date }) => {
-    console.log({ content, emotion, date }, "onCreate");
     dispatch({
       type: "CREATE",
       data: {
@@ -85,7 +83,7 @@ function App() {
           <BrowserRouter>
             <Routes>
               <Route path="/" element={<Home />} />
-              <Route path="/edit" element={<Edit />} />
+              <Route path="/edit/:id" element={<Edit />} />
               <Route path="/new" element={<New />} />
               <Route path="/diary" element={<Diary />} />
             </Routes>

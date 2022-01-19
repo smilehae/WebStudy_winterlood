@@ -24,6 +24,7 @@ const reducer = (state, action) => {
       return action.data;
     }
     case `CREATE`: {
+      console.log(action.data);
       newState = [action.data, ...state];
       break;
     }
@@ -46,9 +47,10 @@ const reducer = (state, action) => {
 
 function App() {
   const [data, dispatch] = useReducer(reducer, dummyData);
-  const idCount = useRef(0);
+  const idCount = useRef(6);
 
   const onCreate = ({ content, emotion, date }) => {
+    console.log({ content, emotion, date }, "onCreate");
     dispatch({
       type: "CREATE",
       data: {

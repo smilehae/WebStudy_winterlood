@@ -30,16 +30,17 @@ const DiaryList = ({ data }) => {
   const navigate = useNavigate();
   const [sortOrder, setSortOrder] = useState("latest");
   const [feelingFilter, setFeelingFilter] = useState("all");
-  const sortByDate = (a, b) => {
-    if (sortOrder === "latest") {
-      return a.date - b.date;
-    } else {
-      return b.date - a.date;
-    }
-  };
-  const copyList = JSON.parse(JSON.stringify(data));
-  const sortedList = copyList.sort(sortByDate);
-  const getFilteredList = () => {
+
+  const getProcessedDiaryList = () => {
+    const sortByDate = (a, b) => {
+      if (sortOrder === "oldest") {
+        return a.date - b.date;
+      } else {
+        return b.date - a.date;
+      }
+    };
+    const copyList = JSON.parse(JSON.stringify(data));
+    const sortedList = copyList.sort(sortByDate);
     if (feelingFilter === "all") return sortedList;
     if (feelingFilter === "good")
       return sortedList.filter((data) => data.emotion >= 3);
@@ -71,7 +72,7 @@ const DiaryList = ({ data }) => {
         </div>
       </div>
       <div className="dataList">
-        {getFilteredList().map((data) => (
+        {getProcessedDiaryList().map((data) => (
           <DiaryItem key={data.id} {...data} />
         ))}
       </div>

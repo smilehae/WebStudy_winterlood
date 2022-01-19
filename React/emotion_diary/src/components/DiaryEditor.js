@@ -29,7 +29,7 @@ const DiaryEditor = ({ isEdit, originData }) => {
     }
     if (
       window.confirm(
-        isEdit ? "일기를 수정하시겠습니까?" : "일기를 삭제하시겠습니까?"
+        isEdit ? "일기를 수정하시겠습니까?" : "일기를 작성하시겠습니까?"
       )
     ) {
       if (isEdit) {
@@ -72,10 +72,10 @@ const DiaryEditor = ({ isEdit, originData }) => {
         <section>
           <h4>오늘의 감정은?</h4>
           <div className="input_box emotion_list_wrapper">
-            {emotionList.map((item) => (
+            {emotionList.map((item, idx) => (
               <EmotionItem
                 {...item}
-                key={item.id}
+                key={idx}
                 onClick={handleClickEmote}
                 isSelected={item.emotion_id === emotion}
               />

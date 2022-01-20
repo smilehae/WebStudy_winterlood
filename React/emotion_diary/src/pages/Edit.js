@@ -9,10 +9,16 @@ const Edit = () => {
   const diaryList = useContext(DiaryStateContext);
   const [originData, setOriginData] = useState();
 
+  useEffect(() => {
+    const titleElement = document.getElementsByTagName("title")[0];
+    titleElement.innerHTML = `감정 일기장 - ${id}번 일기 수정`;
+  }, []);
+
   // edit 컴포넌트가 마운트 되었을때,  diaryList에서 원하는 데이터 가져오고 싶다.
   //id가 변하거나 다이어리리스트가 변할떄만 꺼냄!
+
   useEffect(() => {
-    if (diaryList.length > 1) {
+    if (diaryList.length >= 1) {
       const targetDiary = diaryList.find(
         (item) => parseInt(item.id) === parseInt(id)
       );

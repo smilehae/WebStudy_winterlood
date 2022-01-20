@@ -1,3 +1,5 @@
+import React from "react";
+//얘는 memo 사용해도 리렌더 -> onClick에서 받는게 state함수가 아니기 때문 > useCallback 적용
 const EmotionItem = ({
   emotion_id,
   emotion_img,
@@ -19,4 +21,4 @@ const EmotionItem = ({
   );
 };
 
-export default EmotionItem;
+export default React.memo(EmotionItem);
